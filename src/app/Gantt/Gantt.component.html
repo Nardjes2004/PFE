@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+
+<div class="content-container">
+    <div class="card">
+        <h1>Gantt chart</h1>
+        <ejs-gantt #ganttObject height="490px"
+    [dataSource]="data"
+    [taskFields]="taskSettings"
+    [columns]="columnSettings"
+    [resources]="resources"
+    [resourceFields]="resourceFields"
+    [labelSettings]="labelOptions"
+    [editSettings]="editOptions"
+    [toolbar]="toolbarOptions"
+    viewType="ResourceView"
+    [showOverAllocation]="true"
+    [enableMultiTaskbar]="true">
+</ejs-gantt>
+    </div>
+</div>

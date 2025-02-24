@@ -1,0 +1,9 @@
+CMD ANGULAR SQL 
+ANGULAR
+pwd :to know the path of the file
+npm install:to install angular
+ng serve:to run the server    note:'bash: ng: command not found'try this cmd(npm uninstall -g @angular/cli
+npm install -g @angular/cli)
+BDD SQL
+node server.js :to run the server bdd so "node path.js"
+ 

@@ -1,0 +1,25 @@
+
+p{
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    font-weight: bold;
+  }
+
+:host ::ng-deep {
+    [pDraggable] {
+        cursor: move;
+        background-color: aliceblue;
+    }
+}
+.bg-clr{
+background-color:rgba(255, 255, 255, 0.897);  
+margin-left: 13%;
+}
+
+.marg{
+    
+box-shadow: 0px 4px 6px 0px rgb(198, 205, 198);
+border-radius: 10px; /* Ajustez la valeur pour définir le rayon de courbure souhaité */
+overflow: hidden; /* Assurez-vous que le contenu est masqué s'il dépasse les coins arrondis */
+margin-left: 3%;
+}

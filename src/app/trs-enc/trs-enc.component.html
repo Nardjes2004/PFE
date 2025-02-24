@@ -1,0 +1,34 @@
+<app-navbar></app-navbar> 
+
+<p class="text-center">Tableau de bord</p>
+
+<div class="col-fixed" style="height: 35px"></div>
+<div class="card flex flex-wrap gap-3 marg"> 
+  <div class="p-2 border-1 surface-border border-round w-15rem bg-clr">
+    <h2 class="text-center surface-border border-bottom-1">To Do</h2>
+      <ul class="list-none flex flex-column gap-2 p-0 m-0 ">
+          <li 
+              *ngFor="let product of availableProducts" 
+              class="p-2 border-round shadow-1"
+              pDraggable 
+              (onDragStart)="dragStart(product)" 
+              (onDragEnd)="dragEnd()">
+                  {{product.name}}
+          </li>
+      </ul>
+  </div>
+  <div class="p-2 border-1 surface-border border-round w-15rem bg-clr" pDroppable (onDrop)="drop()">
+      <h2 class="text-center surface-border border-bottom-1">En Cours</h2>
+      <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedProducts" >
+          <li *ngFor="let product of selectedProducts" class="p-2 border-round shadow-1">
+              {{product.name}}
+          </li>
+      </ul>
+  </div>
+
+  <div class="p-2 border-1 surface-border border-round w-15rem bg-clr" pDroppable (onDrop)="drop()">
+    <h2 class="text-center surface-border border-bottom-1">Terminé</h2>
+    <ul class="list-none flex flex-column gap-2 p-0 m-0"  > 
+    </ul>
+</div>
+</div>

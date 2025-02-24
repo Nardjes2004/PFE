@@ -1,0 +1,342 @@
+<app-navbar></app-navbar>  
+
+<p class="text-center">Liste des projets</p>
+
+<div class="card">
+    <p-treeTable 
+    [value]="files" 
+        [scrollable]="true" 
+        [tableStyle]="{'min-width':'50rem'}">
+        
+  <ng-template pTemplate="caption">
+    <div class="flex">
+        <button
+          pButton 
+          label="Actualiser"
+          class="p-button-outlined"
+          icon="pi pi-filter-slash"
+        ></button>
+  
+        <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input
+            pInputText 
+            type="text"
+            placeholder="Rechercher "
+          />
+        </span>
+      </div>
+  
+      <div class="col-fixed" style="height: 30px"></div>
+      <button
+        type="button" 
+        pButton
+        pRipple        
+      (click)="showDialog()"
+        icon="pi pi-plus"
+        class="w-full p-button-Primary mr-2 bt"
+        [style]="{ width: '100%' }"
+        label="Ajouter un Projet "
+      ></button>
+  
+      </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Projet</th>
+                    <th>Date Début</th>
+                    <th>Date Fin</th>
+                    <th>Client</th>
+                    <th>Chef de projet</th>
+                    <th>Validation</th>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode" />
+                        {{ rowData.nom }}
+                    </td>
+                    <td>{{ rowData.dateD}}</td>
+                    <td>{{ rowData.dateF}}</td>
+                    <td>{{ rowData.client}}</td>
+                    <td>{{ rowData.chefP}}</td>
+                    <td>{{ rowData.valide}}</td> 
+                </tr>
+            </ng-template>
+    </p-treeTable>
+</div>
+
+
+<p-dialog
+[baseZIndex]="10000"
+[modal]="true"
+[responsive]="true"
+header="Ajouter un projet"
+[(visible)]="visible"
+[breakpoints]="{ '900px': '50vw', '600px': '100vw' }"
+[draggable]="true"
+[style]="{ width: '80%' }"
+>
+
+
+<div class="col-fixed" style="height: 20px"></div>
+<div class="grid">
+  <div class="col-12 md:col-12 lg:col-6">
+    <span class="p-float-label">
+        <input
+          pInputText 
+          placeholder="Projet"
+          class="w-full"
+          [style]="{ width: '100%' }"
+        />
+        <label class="font-semibold">Le Projet</label> 
+      </span>
+
+      <div class="col-fixed" style="height: 35px"></div>
+
+      <span class="p-float-label">
+        <input
+          pInputText 
+          placeholder="Client"
+          class="w-full"
+          [style]="{ width: '100%' }"
+        />
+        <label class="font-semibold">Client</label> 
+      </span>
+
+      <div class="col-fixed" style="height: 35px"></div>
+
+      <span class="p-float-label">
+      <p-calendar 
+    [(ngModel)]="date1" 
+    [showIcon]="true" 
+    [showOnFocus]="false" 
+    inputId="buttondisplay"
+    [style]="{ width: '100%' }" />
+    
+    <label class="font-semibold">Date de Début</label> 
+</span>
+
+<div class="col-fixed" style="height: 35px"></div>
+
+<span class="p-float-label">
+<p-calendar 
+[(ngModel)]="date1" 
+[showIcon]="true" 
+[showOnFocus]="false" 
+inputId="buttondisplay"
+[style]="{ width: '100%' }" />
+
+<label class="font-semibold">Date de Fin</label> 
+</span>
+
+    </div> 
+
+  <div class="col-12 md:col-12 lg:col-6">
+
+     
+        <label class="font-semibold"><b>Attribuer les Ressources : </b></label> 
+        <div class="col-fixed" style="height: 15px"></div>
+        <label class="font-semibold"><b>les Ressources Humaines: </b></label>  
+        <div class="col-fixed" style="height: 15px"></div>
+        <span class="p-float-label">
+            <p-multiSelect 
+            [options]="cities" 
+            [(ngModel)]="selectedCities" 
+            optionLabel="name" 
+            placeholder="Ressources Humaines" 
+            class="w-full"
+            [style]="{ width: '100%' }"
+            />
+            <label class="font-semibold">Ressources Humaines</label> 
+          </span>
+        <div class="col-fixed" style="height: 15px"></div>
+        
+        <label class="font-semibold"><b>les Ressources Matérielles: </b></label>  
+        <div class="col-fixed" style="height: 15px"></div>
+        <span class="p-float-label">
+            <p-multiSelect 
+            [options]="cities" 
+            [(ngModel)]="selectedCities" 
+            optionLabel="name" 
+            placeholder="Ressources Matérielles" 
+            class="w-full"
+            [style]="{ width: '100%' }"
+            />
+            <label class="font-semibold">Ressources Matérielles</label> 
+          </span>
+        <div class="col-fixed" style="height: 15px"></div>
+        <label class="font-semibold"><b>les Ressources Logicielles: </b></label>  
+        <div class="col-fixed" style="height: 15px"></div>
+        <span class="p-float-label">
+            <p-multiSelect 
+            [options]="cities" 
+            [(ngModel)]="selectedCities" 
+            optionLabel="name" 
+            placeholder="Ressources Logicielles" 
+            class="w-full"
+            [style]="{ width: '100%' }"
+            />
+            <label class="font-semibold">Ressources Logicielles</label> 
+          </span>
+        <div class="col-fixed" style="height: 15px"></div>
+        <label class="font-semibold"><b>les Ressources Financieres: </b></label>  
+        <div class="col-fixed" style="height: 15px"></div> 
+
+    <span class="p-float-label">
+      <input
+        pInputText 
+        placeholder="Budget"
+        class="w-full"
+        [style]="{ width: '100%' }"
+      />
+      <label class="font-semibold">Budget</label> 
+    </span>
+
+    <div class="col-fixed" style="height: 35px"></div>
+     
+    
+
+    
+  </div>
+  
+  <div class="col-12"> 
+    <label class="font-semibold"><b>Définir Backlog : </b></label> 
+
+    <p-table  [tableStyle]="{ 'min-width': '50rem' }">
+
+        <ng-template pTemplate="caption"> 
+          
+              <div class="col-fixed" style="height: 30px"></div>
+              <button
+                type="button" 
+                pButton
+                pRipple         
+      (click)="showDialog2()"
+                icon="pi pi-plus"
+                class="w-full p-button-Primary mr-2 bt"
+                [style]="{ width: '100%' }"
+                label="Ajouter les Taches "
+              ></button>
+          
+              </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Description</th>
+                <th>Date de Début</th>
+                <th>Date de Fin</th> 
+            </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="body">
+            <tr>
+                <td>Tache 1</td>
+                <td>ff</td>
+                <td>ff</td>
+                
+            </tr>
+            <tr>
+                <td>Tache 2</td>
+                <td>ff</td>
+                <td>ff</td>
+                
+            </tr>
+            <tr>
+                <td>Tache 3</td>
+                <td>ff</td>
+                <td>ff</td>
+                
+            </tr>
+        </ng-template>
+
+    </p-table>
+
+  </div>
+</div>
+
+ 
+<ng-template pTemplate="footer">
+  <p-button
+    type="submit"  
+    styleClass="p-button-success"
+    label="Ajouter un projet"
+  ></p-button>
+</ng-template>
+
+
+
+</p-dialog>
+
+
+<p-dialog
+[baseZIndex]="10000"
+[modal]="true"
+[responsive]="true"
+header="Ajouter une Tache"
+[(visible)]="visible2"
+[breakpoints]="{ '900px': '50vw', '600px': '100vw' }"
+[draggable]="true"
+[style]="{ width: '80%' }"
+>
+
+
+
+<div class="col-fixed" style="height: 20px"></div>
+<div class="grid">
+  <div class="col-12 ">
+
+    <span class="p-float-label">
+        <input
+          pInputText 
+          placeholder="Projet"
+          class="w-full"
+          [style]="{ width: '100%' }"
+        />
+        <label class="font-semibold">Description de la tache</label> 
+      </span>
+
+      <div class="col-fixed" style="height: 35px"></div>
+  
+
+      <span class="p-float-label">
+      <p-calendar 
+    [(ngModel)]="date1" 
+    [showIcon]="true" 
+    [showOnFocus]="false" 
+    inputId="buttondisplay"
+    [style]="{ width: '100%' }" />
+    
+    <label class="font-semibold">Date de Début</label> 
+</span>
+
+<div class="col-fixed" style="height: 35px"></div>
+
+<span class="p-float-label">
+<p-calendar 
+[(ngModel)]="date1" 
+[showIcon]="true" 
+[showOnFocus]="false" 
+inputId="buttondisplay"
+[style]="{ width: '100%' }" />
+
+<label class="font-semibold">Date de Fin</label> 
+</span>
+
+    </div> 
+
+</div>
+
+
+<ng-template pTemplate="footer">
+    <p-button
+      type="submit"  
+      styleClass="p-button-success"
+      label="Ajouter une Tache"
+    ></p-button>
+  </ng-template>
+  
+</p-dialog>

@@ -1,0 +1,53 @@
+<div class="grid" style="margin-top: auto">
+  <div class="col-12 md:col-12 lg:col-3"></div>
+  <div class="col-12 md:col-12 lg:col-6">
+    <div
+      class="flex flex-column px-8 py-5 gap-4"
+      style="border-radius: 12px; background-color: white"
+    >
+      <div class="col-12 md:col-12 lg:6 flex justify-center items-center">
+        <img src="../../assets/wanaconsultinghd.png" alt="Logo" class="Logo" />
+      </div>
+      <div class="inline-flex flex-column gap-4">
+        <label style="color: black; font-size: 20px" class="font-semibold"
+          >Nom d'utilisateur</label
+        >
+
+        <input
+          [(ngModel)]="username"
+          style="color: black; border-color: black"
+          pInputText
+        />
+      </div>
+      <div class="inline-flex flex-column gap-4">
+        <label style="color: black; font-size: 20px" class="font-semibold"
+          >Mot de Passe</label
+        >
+        <input
+          [(ngModel)]="password"
+          style="color: black; font-size: 20px; border-color: black"
+          pInputText
+          id="password"
+          type="password"
+          (keydown.enter)="login()"
+        />
+      </div>
+      <div class="grid" style="margin-top: 20px">
+        <div class="col-12 md:col-12 lg:col-2"></div>
+        <div class="col-12 md:col-12 lg:col-8">
+          <p-button
+            (click)="login()"
+            [style]="{ width: '100%', 'color': 'white' }"
+            type="submit"
+            icon="pi pi-user"
+            severity="success"
+            label="Connexion"
+            class="w-full custom-button"
+          ></p-button>
+        </div>
+        <div class="col-12 md:col-12 lg:col-2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-12 lg:col-3"></div>
+</div>

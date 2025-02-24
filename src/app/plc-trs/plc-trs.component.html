@@ -1,0 +1,188 @@
+<app-navbar></app-navbar>
+ <p-confirmDialog [style]="{width: '50vw'}" [visible]="showDialog_confirm"></p-confirmDialog>
+<p class="text-center">Les Placements En Cours</p>
+
+
+   
+<p-table 
+#dt1  
+styleClass="p-datatable-gridlines p-datatable-striped" 
+[tableStyle]="{'min-width': '50rem'}"
+[paginator]="true"
+[rows]="5"
+[value]="TrsEncArray" 
+[globalFilterFields]="['date_plc','taux','duree','montant','date_ech','banque']"
+[showCurrentPageReport]="true"
+currentPageReportTemplate=" {last} sur {totalRecords} "
+[rowsPerPageOptions]="[5,10, 15, 40]" 
+rowGroupMode="subheader"
+>
+
+<ng-template pTemplate="caption">
+    <div class="flex">
+        <button pButton label="Annuler" class=" p-button-outlined" icon="pi pi-filter-slash" (click)="clear()"></button>
+           
+        <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input pInputText (input)="dt1.filterGlobal($any($event.target).value, 'contains')" type="text" placeholder="Rechercher " />
+        </span>
+    </div>
+    <div class="col-fixed" style="height:30px"></div> 
+
+    <div class="grid">
+             
+        <div class="col-12 md:col-6 lg:col-6">   
+             <button  [disabled]="isButtonDisabled" [disabled]="true" type="button" pButton pRipple icon="pi pi-file-excel" [style]="{'width':'100%'} "  class="w-full p-button-success mr-2 bt" pTooltip="XLS" label="Exporter la Liste des Placements en EXCEL" tooltipPosition="bottom"></button>
+        </div> 
+        <div class="col-12 md:col-6 lg:col-6"> 
+             <button  [disabled]="isButtonDisabled" type="button"  [style]="{'width':'100%'} " (click)="showDialog()" pButton pRipple icon="pi pi-plus"  class="w-full p-button-Primary mr-2 bt"  pTooltip="Ajouter un placement" label="Ajouter un Placement en Cours" tooltipPosition="bottom"></button> </div>
+        </div>
+            
+     
+<!--dialog pour l'ajout-->
+
+<form [formGroup]="userForm" novalidate>
+    <p-dialog 
+    [baseZIndex]="10000"
+    [modal]="true"
+    [responsive]="true"
+    header="Ajout d'un Placement en cours" 
+    [(visible)]="visible" 
+    [breakpoints]="{'900px': '50vw',  '600px': '100vw'}"
+    [draggable]="true" 
+    [style]="{width: '60%'}">
+    
+    
+    <div class="grid"> 
+    <div class="col-fixed" style="height:20px"></div> 
+    
+    <div class="col-12">  
+     <label  class="font-semibold">Date du Placement</label> 
+    <input type="date" formControlName="date_plc" [(ngModel)]="date_plc" class="w-full p-inputtext p-component" [style]="{'width':'100%'}" />
+    <small class="p-error block" *ngIf="userForm.get('date_plc')?.invalid && userForm.get('date_plc')?.dirty">Obligatoire</small> 
+     </div>
+    
+    <div class="col-fixed" style="height:20px"></div> 
+    
+    <div class="col-12">  
+     <label class="font-semibold">Montant</label>   
+    <p-inputNumber mode="decimal" [minFractionDigits]="2" [ngModelOptions]="{standalone: true}" [(ngModel)]="montant" class="w-full" [style]="{'width':'100%'}"> </p-inputNumber>
+      </div>  
+    
+    <div class="col-fixed" style="height:20px"></div> 
+    
+    <div class="col-12"> 
+    <span class="p-float-label">
+    <input pInputText formControlName="duree" [(ngModel)]="duree" placeholder="Durée" class="w-full" [style]="{'width':'100%'}"/>
+    <label class="font-semibold">La Durée</label>
+    <small class="p-error block" *ngIf="
+    userForm.get('duree')?.invalid && userForm.get('duree')?.dirty
+    ">Obligatoire</small> 
+    </span> 
+    </div>
+    
+    
+    
+    
+    <div class="col-fixed" style="height:20px"></div> 
+    
+    <div class="col-12">  
+        <label class="font-semibold">Taux</label>   
+       <p-inputNumber mode="decimal" [minFractionDigits]="2" [ngModelOptions]="{standalone: true}" [(ngModel)]="taux" class="w-full" [style]="{'width':'100%'}"> </p-inputNumber>
+         </div>  
+    
+    
+    
+    
+    
+    <div class="col-fixed" style="height:20px"></div> 
+    
+    <div class="col-12">  
+         <label  class="font-semibold">Date d'Echéance</label> 
+        <input type="date" formControlName="date_ech" [(ngModel)]="date_ech" class="w-full p-inputtext p-component" [style]="{'width':'100%'}" />
+        <small class="p-error block" *ngIf="userForm.get('date_ech')?.invalid && userForm.get('date_ech')?.dirty">Obligatoire</small> 
+         </div>
+
+
+    <div class="col-fixed" style="height:25px"></div> 
+    <div class="col-12"> 
+        <span class="p-float-label">
+        <p-dropdown [showClear]="true" formControlName="nom_cmpt" [(ngModel)]="nom_cmpt" [options]="bnq" optionLabel="name" optionValue="name" class="w-full" [style]="{'width':'100%'}" ></p-dropdown>
+        <label class="font-semibold">Banque du Placement</label> 
+        <small class="p-error block" *ngIf="userForm.get('nom_cmpt')?.invalid && userForm.get('nom_cmpt')?.dirty">Obligatoire</small> 
+      
+    </span> 
+    </div>
+    
+    </div>
+    
+    <div class="col-fixed" style="height:25px"></div> 
+    
+        <ng-template pTemplate="footer">
+            <p-button [disabled]="userForm.invalid" type="submit" (click)="save()" icon="pi pi-check-circle" styleClass="p-button-success" label="Ajouter"></p-button> 
+          </ng-template>
+    
+    </p-dialog>
+    </form>
+
+    
+</ng-template>
+
+    <ng-template pTemplate="header">
+          <tr>  
+            <th style="width:20%" class="text-center">Date du Placement</th>
+            <th style="width:20%" class="text-center">Montant</th>
+            <th style="width:20%" class="text-center">Durée</th>
+            <th style="width:20%" class="text-center">Taux </th>  
+            <th style="width:20%" class="text-center">Date d'Echéance</th>  
+            <th style="width:20%" class="text-center">Banque du Placement</th>
+            <th style="width:20%" class="text-center">Modification</th>  
+            <th style="width:20%" class="text-center">Suppression</th>
+          </tr> 
+    </ng-template>
+
+    <ng-template pTemplate="body" let-TrsEncArray >
+   
+        <tr [style.color]="  'black'">  
+            <td class="text-center">
+                <ng-container *ngIf="TrsEncArray.date_plc!== '0000-00-00'">
+                    {{ TrsEncArray.date_plc | date : "dd - MM - yyyy" }}
+                  </ng-container>
+                  <ng-container *ngIf="TrsEncArray.date_plc=== '0000-00-00' ">
+                    Pas encore
+                  </ng-container> 
+                </td> 
+            <td class="text-center">{{ TrsEncArray.montant | currency: 'DA'}}</td> 
+            <td class="text-center">{{ TrsEncArray.duree}}</td> 
+            <td class="text-center">{{ TrsEncArray.taux }}</td> 
+            <td class="text-center">
+                <ng-container *ngIf="TrsEncArray.date_ech!== '0000-00-00'">
+                    {{ TrsEncArray.date_ech | date : "dd - MM - yyyy" }}
+                  </ng-container>
+                  <ng-container *ngIf="TrsEncArray.date_ech=== '0000-00-00' ">
+                    Pas encore
+                  </ng-container>  
+            </td>  
+            <td class="text-center">{{ TrsEncArray.banque }}</td>  
+
+           
+             <td class="text-center">
+                <p-button  [disabled]="isButtonDisabled" (click)="Update(TrsEncArray)" icon="pi pi-pencil" [rounded]="true" severity="secondary"></p-button>
+             </td> 
+             <td class="text-center">
+                <p-button  [disabled]="isButtonDisabled" (click)="Delete(TrsEncArray)" icon="pi pi-trash" [rounded]="true" severity="danger"></p-button>
+             </td> 
+         </tr>
+
+        </ng-template>
+    
+
+    <ng-template pTemplate="groupfooter" >
+        <tr [style.color]="  'black'" class="p-rowgroup-footer">
+            <td class="text-center"> TOTAL</td>   
+            <td colspan="7" style="width: 20%" class="text-center"> {{total_Montant | currency: 'DA'}} </td> 
+
+        </tr>
+    </ng-template>
+</p-table>
+
