@@ -6,4 +6,11 @@ ng serve:to run the server    note:'bash: ng: command not found'try this cmd(npm
 npm install -g @angular/cli)
 BDD SQL
 node server.js :to run the server bdd so "node path.js"
+
+
+To open a folder in vs code indirectly:
+
+
+ we type cmd in the url of the folder ,Next, a cmd prompt oppen ,and than we type "code ."
+and the folder will open in vs code :)
  
